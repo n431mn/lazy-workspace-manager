@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Lazy Workspaces",
+    "description": "Keeps the left sidebar empty on startup and loads a Workspace and its sessions only after you add that folder; folders are managed in Settings, and the sidebar's Delete workspace unloads instead of orphaning sessions."
+  }
+}

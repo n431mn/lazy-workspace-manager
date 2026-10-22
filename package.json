@@ -1,0 +1,66 @@
+{
+  "name": "lazy-workspace-manager",
+  "version": "1.0.0",
+  "description": "DeepSeek Harness Web plugin that keeps the sidebar empty and loads a Workspace and its sessions only for the folders you add. | DSH 按目录加载工作区与会话：侧栏默认留空，添加哪个目录就只加载哪个目录。",
+  "license": "MIT",
+  "author": "n431mn",
+  "homepage": "https://github.com/n431mn/lazy-workspace-manager#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n431mn/lazy-workspace-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/n431mn/lazy-workspace-manager/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek-harness-plugin",
+    "cordis",
+    "workspace",
+    "workspaces",
+    "session",
+    "sidebar",
+    "lazy-load",
+    "folder"
+  ],
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "icon": "./icon.svg",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ]
+    }
+  },
+  "engines": {
+    "dsh": ">=0.2.1-rc.2"
+  },
+  "scripts": {
+    "check": "node --check index.js && node --check client.js",
+    "test": "node test/test.mjs && node test/open-session.mjs && node test/reload.mjs && node test/defaults.mjs && node test/host.mjs"
+  }
+}
