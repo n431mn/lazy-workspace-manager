@@ -16,9 +16,9 @@ A DeepSeek Harness (DSH) Web plugin providing lazy loading and on-demand workspa
 In multi-project development environments, DSH accumulates workspace registrations as directories change. Over time, the sidebar enumerates all historical workspaces and conversations, leading to visual clutter and increased navigation friction.
 
 **lazy-workspace-manager** implements **lazy loading** and **automated workspace lifecycle management**:
-- **On-Demand Loading**: Avoids full initialization of historical workspaces at startup, preventing sidebar bloat across numerous project directories.
-- **Context-Aware Attribution**: Opening or restoring a conversation automatically traces and loads its associated workspace, preventing conversations from falling into the "Ungrouped" state.
-- **Frontend State Proxy (Non-Intrusive)**: Operates primarily at the frontend presentation and data projection layer without altering underlying storage. **Disabling or uninstalling this plugin immediately restores default DSH workspace rendering and behaviors**.
+- **On-Demand Loading**: Avoids listing every historical workspace at startup, preventing sidebar bloat across numerous project directories.
+- **Context-Aware Attribution**: Opening or restoring a conversation automatically traces and loads its registered workspace, preventing conversations from falling into the "Ungrouped" state.
+- **Frontend Filtering with a Host Index**: Filters the shared workspace and session projections while the plugin is active; the Host also keeps an index of registered workspaces and known sessions and attaches directory-owned sessions to their workspace. Removing the plugin returns the sidebar to DSH's global lists; the index and startup preferences remain in the profile data directory.
 
 ---
 
@@ -29,7 +29,7 @@ In multi-project development environments, DSH accumulates workspace registratio
 - **Persistent Startup Defaults**: Allows pinning high-frequency workspaces to load automatically on startup via settings.
 - **Sidebar Unload Semantics**: Remaps the sidebar "Delete workspace" action to "Unload" (hides from view without deregistering or deleting session files); full workspace deletion is retained in settings with two-step confirmation.
 - **Filter Drafts and Archives**: Suppresses interaction-less blank drafts and archived sessions to maintain a clean workspace tree.
-- **Zero-Residual Reversibility**: Removing the plugin instantly reverts DSH to standard global workspace loading with no persistent side effects.
+- **Reversible Unload, Persistent Index**: Unloading only hides a folder and never deletes sessions; removing the plugin restores global workspace loading. The Host index and startup defaults remain under the profile data directory.
 
 ---
 
@@ -84,7 +84,7 @@ dsh plugin --profile web remove lazy-workspace-manager
 dsh web
 ```
 
-Upon reloading the browser, all workspaces and sessions will render under standard global loading behavior.
+Upon reloading the browser, all workspaces and sessions render under standard global loading behavior. The plugin's index and startup defaults stay in the profile data directory.
 
 ---
 
